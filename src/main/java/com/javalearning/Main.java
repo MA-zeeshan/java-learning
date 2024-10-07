@@ -1,17 +1,39 @@
 package com.javalearning;
 
+import java.text.NumberFormat;
+import java.util.Scanner;
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        final byte MONTHS_IN_YEAR = 12;
+        final byte PERCENT = 100;
+//        mortgage calculator
+        System.out.println("///*** This is an example mortgage calculator ***///");
+        System.out.print("Principal Amount (The actual Amount you want to get): ");
+        Scanner scanner = new Scanner(System.in);
+        int actualAmount = scanner.nextInt();
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
+
+        System.out.print("Annual Interset Rate: ");
+        float interestRate = scanner.nextFloat();
+        float monthlyInterestRate = interestRate/PERCENT/MONTHS_IN_YEAR;
+
+
+        System.out.print("Number of Years: ");
+        byte loanForYears = scanner.nextByte();
+        int numberOfPayments = loanForYears * MONTHS_IN_YEAR;
+        double mortgage = actualAmount * (monthlyInterestRate * Math.pow(1+monthlyInterestRate, numberOfPayments))
+                                        / (Math.pow(1+monthlyInterestRate, numberOfPayments-1));
+
+        String mortgageFormatted = NumberFormat.getCurrencyInstance().format(mortgage);
+
+        System.out.println(mortgageFormatted);
+
+
+
+
+
     }
 }
